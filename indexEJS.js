@@ -27,15 +27,27 @@ app.use(logger)
 
 // Middleware ______________________________
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'inicio.ejs')); 
+});
+
+app.get('/inicio', (req, res) => {
+    res.render("inicio"); 
+});
+
 
 app.get('/parcial', (req, res) => {
     res.render("parcial"); 
 });
 
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'pedido.html')); 
+app.get('/cliHist', (req, res) => {
+    res.render("cliHist"); 
 });
+
+
+
+
+
 
 
 app.get('/pedido1', (req, res) => {
