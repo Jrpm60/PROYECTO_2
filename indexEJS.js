@@ -30,6 +30,10 @@ app.get('/blanco', (req, res) => {
     res.render("0_0_blanco");
 });
 
+app.get('/', (req, res) => {
+    res.render("2_0_inicio");
+});
+
 app.get('/inicio', (req, res) => {
     res.render("2_0_inicio");
 });
@@ -54,9 +58,50 @@ app.get('/regInicio', (req, res) => {
     res.render("2_10_regInicio");
 });
 
+app.get('/consultas', (req, res) => {
+    res.render("2_11_consultas");
+});
+
 app.get('/gracias', (req, res) => {
     res.render("2_9_thanks");
 });
+
+app.get('/getfichero', (req, res) => {
+    const {id} = req.query;
+    console.log(id);
+    let leeFichero="";
+    switch (Number(id)) {
+        case 1 : 
+            leeFichero = "/data_login.txt" ;
+            break;
+
+        case 2 : 
+            leeFichero = "/data_job_application.txt" ;
+            break;
+
+        case 3 : 
+            leeFichero = "/data_contact_form.txt" ;
+            break;
+
+        case 4 : 
+            leeFichero = "/data_cliHist.txt" ;
+            break;
+
+        default :
+            console.log("Fichero no encontrado");
+        }
+
+    console.log(leeFichero);
+
+    // leer el fichero
+
+    
+
+});
+
+
+
+
 
 /* FIN BLOQUE NAVEGACION */
 

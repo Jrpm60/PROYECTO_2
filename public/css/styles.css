@@ -78,6 +78,36 @@ nav ul li a:hover {
     z-index: 1;
 }
 
+.contenedor-consultas {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto 20px;
+    padding: 20px;
+    gap: 20px;
+}
+
+.columna-botones {
+    display: flex;
+    flex-direction: column;
+    width: 150px; /* Ajusta el ancho según sea necesario */
+    background-color: #f0f0f0; /* Opcional: añade un fondo para visualización */
+    padding: 10px;
+    position: sticky; /* Para que la columna se mantenga fija */
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+}
+
+.boton-consulta { 
+    margin-bottom: 10px;
+    width: 100%; 
+    padding: 10px;
+    box-sizing: border-box; 
+}
+
+.section-consultas {
+    flex-grow: 1; /* El contenido principal ocupa el espacio restante */
+    padding: 20px;
+}
+
 .gallery-item {
     padding: 20px;
     border-radius: 8px;

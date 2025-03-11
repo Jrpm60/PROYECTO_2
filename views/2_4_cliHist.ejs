@@ -14,7 +14,7 @@
     <%- include('partials/nav') %>
 
     <form action="/cliHist" method="post">
-        <div class="gallery-item item-columspan2" >
+        <div class="gallery-item " >
             <div>
                 <label for="cli">Cliente:</label>
                 <input type="text" id="cli" name="cli" required>
@@ -30,6 +30,7 @@
             <div>
                 <label for="prioridad">Prioridad:</label>
                 <select name="prioridad" id="prioridad">
+                    <option hidden value="0">Elije una opcion</option>
                     <option value="1">Baja</option>
                     <option value="2">Media</option>
                     <option value="3">Alta</option>
@@ -46,6 +47,7 @@
             <div>
                 <label for="cliHistDep">Area de Negocio:</label>
                 <select name="cliHistDep" id="cliHistDep">
+                    <option hidden value="0">Elije una opcion</option>
                     <option value="1">Direccion</option>
                     <option value="2">Operaciones</option>
                     <option value="3">Facturacion</option>
