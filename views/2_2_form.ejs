@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Empleo</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+
+    <%- include('partials/header') %>
+    <%- include('partials/nav') %>
+
+    <section class="section-container">
+
+        <!-- INICIO PRIMER FILA. COLAPS 3 COL EN 1 . SOLO TEXTO.-->
+        <div class="gallery-item item-columspan3" >
+            <h1>Inscripcion de Candidatura para Empleo</h2>   
+        </div>
+        <!-- FIN PRIMERA FILA ................. -->
+    
+        <!-- SEGUNDA FILA. INICIO PRIMERA COLUMNA. CARGA DE ARCHIVOS -->   
+        <div class="gallery-item">
+            <h1>Cargar un archivo</h1>
+            <h5>powered by Gemini AI</h5>
+            <div id="drop-area">
+                <p>Arrastra y suelta un archivo aquí, <br> o haz clic para seleccionar</p>
+                <input type="file" id="fileElem" >
+            </div>
+            <div id="file-info">
+                <p>Archivo seleccionado: <span id="file-name"></span></p>
+                <button id="upload-button">Subir archivo</button>
+            </div>
+            <script>
+                // Variables
+                let dropArea = document.getElementById('drop-area');
+                let fileElem = document.getElementById('fileElem');
+                let fileInfo = document.getElementById('file-info');
+                let fileNameDisplay = document.getElementById('file-name');
+                let uploadButton = document.getElementById('upload-button');
+                let selectedFile; // Variable para almacenar el archivo seleccionado
+            
+                // Variables para el formulario de subida de archivo independiente
+                const inputArchivoSubir = document.getElementById('archivoSubir');
+                const btnSubirArchivo = document.getElementById('btnSubirArchivo');
+            
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            
+                function highlight(e) {
+                    dropArea.classList.add('hover');
+                }
+            
+                function unhighlight(e) {
+                    dropArea.classList.remove('hover');
+                }
+            
+                function handleDrop(e) {
+                    let dt = e.dataTransfer;
+                    let files = dt.files;
+                    handleFiles(files);
+                }
+            
+                // Comportamiento predeterminado de los eventos de arrastrar y soltar
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, preventDefaults, false);
+                });
+            
+                // Resaltar y desresaltar el área de arrastrar y soltar
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, highlight, false);
+                });
+            
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropArea.addEventListener(eventName, unhighlight, false);
+                });
+            
+                // Dejar archivo en el área de arrastrar y soltar
+                dropArea.addEventListener('drop', handleDrop, false);
+            
+                // Simular un clic en el input de tipo file
+                dropArea.addEventListener('click', () => {
+                    fileElem.click();
+                });
+            
+                // Manejar el cambio en el input de tipo file
+                fileElem.addEventListener('change', () => {
+                    handleFiles(fileElem.files);
+                });
+            
+                // Función para manejar los archivos seleccionados
+                function handleFiles(files) {
+                    selectedFile = files[0];
+                    fileNameDisplay.textContent = selectedFile.name;
+                    fileInfo.style.display = 'block';
+                    uploadButton.style.display = 'block'; // Mostrar el botón de subida
+                }
+            
+                // Manejar el clic en el botón de subir
+                uploadButton.addEventListener('click', () => {
+                    uploadFile(selectedFile);
+                });
+            
+                // Función para subir el archivo
+                function uploadFile(file) {
+                    if (!file) {
+                        alert("Por favor, selecciona un archivo.");
+                        return;
+                    }
+            
+                    let formData = new FormData();
+                    formData.append('archivo', file);
+            
+                    fetch('/UPLOAD', { // Reemplaza '/upload' con la URL de tu servidor
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data); // Muestra la respuesta del servidor
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Error al subir el archivo.");
+                    });
+                }
+            
+                // Event Listener para el formulario de subida de archivo independiente
+                inputArchivoSubir.addEventListener('change', function() {
+                    if (inputArchivoSubir.files.length > 0) {
+                        btnSubirArchivo.style.display = 'block';
+                    } else {
+                        btnSubirArchivo.style.display = 'none';
+                    }
+                });
+            </script>
+        </div>
+        <!-- SEGUNDA FILA. FIN PRIMERA COLUMNA. CARGA DE ARCHIVOS --> 
+    
+        <!-- SEGUNDA FILA. INICIO SEGUNDA COLUMNA. TEXTO --> 
+        <div class="gallery-item">
+            <h2>¡Estamos deseando conocerte!</h2>
+            <P>Envianos tus datos, sube tu curriculum,
+            queremos conocerte, siempre estamos 
+            a la busqueda de talento y sumar al equipo.
+            <BR></BR>
+            Recuerda que tu ACTITUD siempre suma.</P>
+        </div>
+        <!-- SEGUNDA FILA. FIN SEGUNDA COLUMNA. TEXTO -->
+    
+    
+        <!-- SEGUNDA FILA. INICIO TERCERA COLUMNA. FORMULARIO --> 
+        <form action="/procesar" method="post">
+            <div class="gallery-item">
+                <div>
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="apellido1">1er Apellido:</label>
+                    <input type="text" id="apellido1" name="apellido1" required>
+                </div>
+                <div>
+                    <label for="apellido2">2º Apellido:</label>
+                    <input type="text" id="apellido2" name="apellido2" required>
+                </div>
+                <div>
+                    <label for="email">@_Mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" name="dni" required>
+                </div>
+                <div>
+                    <label for="edu">Formación:</label>
+                    <select name="edu" id="edu">
+                        <option value="1">Sin estudios</option>
+                        <option value="2">Educación Primaria</option>
+                        <option value="3">Educación Secundaria</option>
+                        <option value="4">Formación Profesional</option>
+                        <option value="5">Grado Universitario</option>
+                        <option value="6">Máster</option>
+                        <option value="7">Doctorado</option>
+                    </select>
+                </div>
+    
+    
+                <div id="polipriv">
+                    <input type="checkbox" id="politicaPrivacidad">
+                    <h5><a target="_blank" href="00politica_privacidad.txt">Política de Privacidad</a></h5>
+                </div>
+    
+                <div id="robotCheck">
+                    <input type="checkbox" onchange="manejarCheckbox.call(this)">
+                    <img width="150px" id="robot" src="https://raw.githubusercontent.com/Jrpm60/images/refs/heads/main/Robot.PNG" alt="Image 8">
+                </div>
+    
+                <progress id="barraProgreso" value="0" max="100"></progress>
+    
+                <p id="cargando">Cargando... <span id="valorProgreso">0</span>%</p>
+                    
+                <script>
+                    function actualizarProgreso(valor) {
+                        document.getElementById("barraProgreso").value = valor;
+                        document.getElementById("valorProgreso").textContent = valor;
+                    }
+            
+                    let progreso = 0;
+                    let intervalo;
+            
+                    function iniciarProgreso() {
+                        document.getElementById("barraProgreso").style.display = "block"; // Mostrar barra de progreso
+                        document.getElementById("cargando").style.display = "block"; // Mostrar mensaje "Cargando..."
+                        intervalo = setInterval(() => {
+                            progreso += 10;
+                            if (progreso <= 100) {
+                                actualizarProgreso(progreso);
+                            } else {
+                                clearInterval(intervalo);
+                            }
+                        }, 250);
+                    }
+            
+                    function detenerProgreso() {
+                        clearInterval(intervalo);
+                        document.getElementById("barraProgreso").style.display = "none"; // Ocultar barra de progreso
+                        document.getElementById("cargando").style.display = "none"; // Ocultar mensaje "Cargando..."
+                    }
+            
+                    function manejarCheckbox() {
+                        if (this.checked) {
+                            iniciarProgreso();
+                        } else {
+                            detenerProgreso();
+                        }
+                    }
+                </script>
+    
+                <div>
+                    <button type="submit">Enviar</button>
+                </div>
+            </div>
+        </form>
+        <!-- SEGUNDA FILA. FIN TERCERA COLUMNA. FORMULARIO --> 
+    
+    </section>
+    <!-- FIN BLOQUES FILAS Y COLUMNAS-->
+
+
+
+    <%- include('partials/footer') %>
+    
+</body>
+</html>

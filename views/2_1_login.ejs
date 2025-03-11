@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Espacio Privado</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+
+    <%- include('partials/header') %>
+    <%- include('partials/nav') %>
+
+    <section class="section-container">
+
+        <div class="gallery-item item-columspan3" >
+            <h1>Acceso Entorno de Privado</h1>
+        </div>
+    
+        <div class="gallery-item item-columspan" >
+            <img src="https://raw.githubusercontent.com/Jrpm60/images/refs/heads/main/Conectado.PNG" alt="Image 1">
+        </div>
+    
+        <!-- Mostar en la caja   FIN-->
+    
+    
+    <form action="/procesLogin" method="post">
+    
+        <div class="gallery-item">
+                <div>
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" required>
+                </div>
+                <div>
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+    
+                <div>
+                    <label for="password1">Repite tu Contraseña:</label>
+                    <input type="password" id="password1" name="password1" required>
+                </div>
+                <br></br>
+                <div>
+                    <a href="">Olvidaste tu Usuario y/o Contraseña</a>
+                </div>
+    
+                <div id="polipriv">
+                    <input type="checkbox" id="politicaPrivacidad">
+                    <h5><a target="_blank" href="00politica_privacidad.txt">Política de Privacidad</a></h5>
+                </div>
+    
+                <div id="robotCheck">
+                    <input type="checkbox" onchange="manejarCheckbox.call(this)">
+                    <img width="150px" id="robot" src="https://raw.githubusercontent.com/Jrpm60/images/refs/heads/main/Robot.PNG" alt="Image 8">
+                </div>
+    
+                <progress id="barraProgreso" value="0" max="100"></progress>
+    
+                <p id="cargando">Cargando... <span id="valorProgreso">0</span>%</p>
+                    
+                <script>
+                    function actualizarProgreso(valor) {
+                        document.getElementById("barraProgreso").value = valor;
+                        document.getElementById("valorProgreso").textContent = valor;
+                    }
+            
+                    let progreso = 0;
+                    let intervalo;
+            
+                    function iniciarProgreso() {
+                        document.getElementById("barraProgreso").style.display = "block"; // Mostrar barra de progreso
+                        document.getElementById("cargando").style.display = "block"; // Mostrar mensaje "Cargando..."
+                        intervalo = setInterval(() => {
+                            progreso += 10;
+                            if (progreso <= 100) {
+                                actualizarProgreso(progreso);
+                            } else {
+                                clearInterval(intervalo);
+                            }
+                        }, 250);
+                    }
+            
+                    function detenerProgreso() {
+                        clearInterval(intervalo);
+                        document.getElementById("barraProgreso").style.display = "none"; // Ocultar barra de progreso
+                        document.getElementById("cargando").style.display = "none"; // Ocultar mensaje "Cargando..."
+                    }
+            
+                    function manejarCheckbox() {
+                        if (this.checked) {
+                            iniciarProgreso();
+                        } else {
+                            detenerProgreso();
+                        }
+                    }
+                </script>
+    
+                <div>
+                    <button type="submit">Enviar</button>
+                </div>
+    
+        </div>
+    </form>
+    
+    
+    </section>
+
+
+
+
+    <%- include('partials/footer') %>
+    
+</body>
+</html>
