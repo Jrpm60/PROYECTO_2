@@ -95,7 +95,8 @@ app.get('/getfichero', (req, res) => {
 
     // leer el fichero
 
-    
+
+
 
 });
 
