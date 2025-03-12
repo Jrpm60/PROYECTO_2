@@ -6,12 +6,16 @@
     <title>Requerimientos cliente</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-
-
 <body>
     
     <%- include('partials/header') %>
     <%- include('partials/nav') %>
+
+    <section class="section-container" id="contacto"></section>
+
+        <h1>¿En que podemos mejorar?</h1>
+        <h2>Si necesitas soluciones a nuevos retos,</h2>
+        <h2>mejorar procedimientos actuales o tienes sugerencias...</h2>
 
     <form action="/cliHist" method="post">
         <div class="gallery-item " >
@@ -20,13 +24,28 @@
                 <input type="text" id="cli" name="cli" required>
             </div>
             <div>
-                <label for="emailCli">Contacto Cliente: (e_mail)</label>
+                <label for="emailCli">Correo Contacto:</label>
                 <input type="email" id="emailCli" name="emailCli" required>
             </div>
+
             <div>
-                <label for="cliHist">Descripcion Solicitud</label>
-                <input type="textarea" id="cliHist" name="cliHist" required>
+                <label for="cliHist">COMO:</label>
+                <textarea id="cliHist" name="cliHist" rows="2" cols="25" required></textarea>                
             </div>
+            <div>
+                <label for="cliHist">QUIERO:</label>
+                <textarea id="cliHist" name="cliHist" rows="2" cols="25" required></textarea>                
+            </div>
+            <div>
+                <label for="cliHist">PARA:</label>
+                <textarea id="cliHist" name="cliHist" rows="2" cols="25" required></textarea>                
+            </div>
+
+
+
+
+
+
             <div>
                 <label for="prioridad">Prioridad:</label>
                 <select name="prioridad" id="prioridad">
@@ -40,11 +59,6 @@
             </div>
 
             <div>
-                <label for="cliHistDate">Fecha:</label>
-                <input type="date" id="cliHistDate" name="cliHistDate" required>
-            </div>
-
-            <div>
                 <label for="cliHistDep">Area de Negocio:</label>
                 <select name="cliHistDep" id="cliHistDep">
                     <option hidden value="0">Elije una opcion</option>
@@ -52,8 +66,12 @@
                     <option value="2">Operaciones</option>
                     <option value="3">Facturacion</option>
                     <option value="4">Gestion de Personas</option>
-
                 </select>
+            </div>
+
+            <div>
+                <label for="cliHistDate">Fecha:</label>
+                <input type="date" id="cliHistDate" name="cliHistDate" required>
             </div>
             
 

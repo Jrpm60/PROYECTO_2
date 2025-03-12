@@ -4,26 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magoal 66</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles_consulta.css">
 </head>
 <body>
-
-
     <%- include('partials/reg_header') %>
     <%- include('partials/reg_nav') %>
 
     <div>
         <br>
+        <br>    
         <br>
         <br>
-        <a href="/getfichero?id=1">Ver Accesos</a> <br>
-        <a href="/getfichero?id=2">Ver Solicitudes empleo</a> <br>
-        <a href="/getfichero?id=3">Ver Solicitudes de contacto</a> <br>
-        <a href="/getfichero?id=4">Ver Historias de cliente</a> <br>
+        <br>    
+        <br>
+        <form action="/getfichero" method="get">
+            <label for="verDatos">Ver Datos:</label>
+            <select name="id" id="verDatos" >
+                <option hidden value="0">Elije una opcion</option>
+                <option value="1">Datos de Inicio de Sesion</option>
+                <option value="2">Solicitudes de empleo</option>
+                <option value="3">Solicitudes de Contacto</option>
+                <option value="4">Historias de Cliente</option>
+            </select>
+            <button type="submit">Ver</button>
+        </form>
+    </div>
+
+    <div id="contenido-gris">
+        <table>
+            <thead>
+                <tr>
+                    <th>CLIENTE:</th>
+                    <th>CORREO DE CONTACTO:</th>
+                    <th>COMO:</th>
+                    <th>QUIERO:</th>
+                    <th>PARA:</th>
+                    <th>PRIORIDAD:</th>
+                    <th>AREA DE NEGOCIO:</th>
+                    <th>FECHA REGISTRO:</th>
+                    <th>FECHA SISTEMA:</th>
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                            <td>ejemplo</td>
+                        </tr>  
+                        
+                        
+
+
+                    <!-- <tr>
+                        <td colspan="9">No hay datos para mostrar.</td>
+                    </tr> -->
+                
+            </tbody>
+        </table>
     </div>
 
 
+
     <%- include('partials/footer') %>
-    
 </body>
 </html>

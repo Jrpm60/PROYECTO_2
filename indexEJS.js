@@ -70,21 +70,23 @@ app.get('/getfichero', (req, res) => {
     const {id} = req.query;
     console.log(id);
     let leeFichero="";
+
+
     switch (Number(id)) {
         case 1 : 
-            leeFichero = "/data_login.txt" ;
+            leeFichero = "data_login.txt" ;
             break;
 
         case 2 : 
-            leeFichero = "/data_job_application.txt" ;
+            leeFichero = "data_job_application.txt" ;
             break;
 
         case 3 : 
-            leeFichero = "/data_contact_form.txt" ;
+            leeFichero = "data_contact_form.txt" ;
             break;
 
         case 4 : 
-            leeFichero = "/data_cliHist.txt" ;
+            leeFichero = "data_cliHist.txt" ;
             break;
 
         default :
@@ -93,8 +95,15 @@ app.get('/getfichero', (req, res) => {
 
     console.log(leeFichero);
 
-    // leer el fichero
+    fs.readFile(leeFichero, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error al leer el fichero');
+        }
+        res.send(data);
+    }); 
 
+    
 
 
 
