@@ -71,7 +71,6 @@ app.get('/getfichero', (req, res) => {
     console.log(id);
     let leeFichero="";
 
-
     switch (Number(id)) {
         case 1 : 
             leeFichero = "data_login.txt" ;
@@ -95,16 +94,27 @@ app.get('/getfichero', (req, res) => {
 
     console.log(leeFichero);
 
-    fs.readFile(leeFichero, 'utf8', (err, data) => {
+ fs.readFile(leeFichero, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error al leer el fichero');
-        }
+        } else {
         res.send(data);
+    }
+
     }); 
 
-    
+/*     fs.readFile(leeFichero, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error al leer el fichero');
+        } else {
+            // Ejemplo: Si los datos son JSON, puedes analizarlos
+            // let datos = JSON.parse(data);
 
+            res.render('datos', { contenido: data }); // Envía los datos a la plantilla EJS
+        }
+    }); */
 
 
 });
