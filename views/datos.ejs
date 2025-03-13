@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magoal 66</title>
+    <link rel="stylesheet" href="/css/styles_consulta.css">
+</head>
+<body>
+    <%- include('partials/reg_header') %>
+    <%- include('partials/reg_nav') %>
+
+    <h1>Datos</h1>
+
+    <div id="contenido-gris">
+        <% if (datos && datos.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <% nombresCampos.forEach(nombre => { %>
+                            <th><%= nombre %></th>
+                        <% }); %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% datos.forEach(linea => { %>
+                        <tr>
+                            <% linea.forEach(valor => { %>
+                                <td><%= valor %></td>
+                            <% }); %>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No hay datos para mostrar.</p>
+        <% } %>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

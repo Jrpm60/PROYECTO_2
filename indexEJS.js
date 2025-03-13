@@ -1,7 +1,7 @@
-import express from 'express'
+import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import fs from 'fs'
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,13 +18,9 @@ function logger(req, res, next) {
     console.log(`LOGGER: ${req.url}`);
     next();
 }
-app.use(logger)
+app.use(logger);
 
 /* INICIO BLOQUE DE NAVEGACION */
-
-/* app.get('/2_0_inicio', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', '2_0_inicio.ejs'));
-}); */
 
 app.get('/blanco', (req, res) => {
     res.render("0_0_blanco");
@@ -67,61 +63,44 @@ app.get('/gracias', (req, res) => {
 });
 
 app.get('/getfichero', (req, res) => {
-    const {id} = req.query;
+    const { id } = req.query;
     console.log(id);
-    let leeFichero="";
+    let leeFichero = "";
 
     switch (Number(id)) {
-        case 1 : 
-            leeFichero = "data_login.txt" ;
+        case 1:
+            leeFichero = "data_login.txt";
             break;
-
-        case 2 : 
-            leeFichero = "data_job_application.txt" ;
+        case 2:
+            leeFichero = "data_job_application.txt";
             break;
-
-        case 3 : 
-            leeFichero = "data_contact_form.txt" ;
+        case 3:
+            leeFichero = "data_contact_form.txt";
             break;
-
-        case 4 : 
-            leeFichero = "data_cliHist.txt" ;
+        case 4:
+            leeFichero = "data_cliHist.txt";
             break;
-
-        default :
+        default:
             console.log("Fichero no encontrado");
-        }
+            return res.render('datos', { datos: [] });
+    }
 
     console.log(leeFichero);
 
- fs.readFile(leeFichero, 'utf8', (err, data) => {
+    const nombresCampos = ["Fecha Registro", "Cliente", "Correo de Contacto", "Como", "Quiero", "Para", "Prioridad", "Area de Negocio", "Fecha Sistema", "isLoggedIn"]; // Define los nombres de los campos
+
+    fs.readFile(leeFichero, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Error al leer el fichero');
         } else {
-        res.send(data);
-    }
-
-    }); 
-
-/*     fs.readFile(leeFichero, 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Error al leer el fichero');
-        } else {
-            // Ejemplo: Si los datos son JSON, puedes analizarlos
-            // let datos = JSON.parse(data);
-
-            res.render('datos', { contenido: data }); // Envía los datos a la plantilla EJS
+            const lineas = data.split('\n');
+            const datos = lineas.map(linea => linea.split(','));
+            res.render('datos', { datos: datos, nombresCampos: nombresCampos }); // Envía los datos y los nombres de los campos a la vista
+        console.log(datos);
         }
-    }); */
-
-
+    });
 });
-
-
-
-
 
 /* FIN BLOQUE NAVEGACION */
 
@@ -168,7 +147,6 @@ app.post('/procesLogin', (req, res) => {
     } else {
         var isLoggedIn = false;
         redirectUrl = '/gracias';
-    
     }
 
     const now = new Date();
@@ -199,8 +177,6 @@ app.post('/cliHist', (req, res) => {
         }
     });
 });
-
-
 
 app.use((req, res) => {
     res.status(404).send('Error pagina no existe');
